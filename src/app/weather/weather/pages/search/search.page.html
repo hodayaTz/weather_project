@@ -1,0 +1,58 @@
+<div class="example-form">
+
+  <mat-slide-toggle id="slide-toggle" (click)="changeTemperatureUnit()">
+    <label>
+      Temperature in Fahrenheit
+    </label>
+  </mat-slide-toggle>
+
+  <div class="top-bar">
+    <mat-form-field class="full-width" (ngSubmit)="displayWeather()" appearance="fill">
+      <mat-label>City Name</mat-label>
+      <input matInput type="text" name="searchText" [(ngModel)]="searchText" (ngModelChange)="autoCompleteLocation()"
+        [matAutocomplete]="auto" (keypress)="isValid($event)">
+
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let locate of locations$ | async " (click)="displayWeather()" [value]="locate">
+          <p>{{locate.LocalizedName}}</p>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="currentWeather && location && flag else noLocations" class="weather">
+    <div class="currentWeather">
+      <div class="details">
+        <h1>{{location.LocalizedName}}</h1>
+        <h2>{{currentWeather.LocalObservationDateTime | date:'MMM /d'}}</h2>
+        <h2 *ngIf="isMetric;" class="temp">{{currentWeather.Temperature.Metric.Value}}</h2>
+        <h2 *ngIf="!isMetric;" class="temp">{{currentWeather.Temperature.Imperial.Value}}</h2>
+        <h2>{{currentWeather.WeatherText}}</h2>
+      </div>
+      <img width="220px" [src]="srcImag" alt="weather_image">
+      <button mat-stroked-button color="green" (click)="Favorites()">
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="forecast" class="forecast">
+    <mat-card *ngFor="let f of forecast.DailyForecasts" class="example-card">
+      <mat-card-title-group>
+        <mat-card-title>{{f.Date | date:'EEEE' }}</mat-card-title>
+        <mat-card-subtitle>{{ f.Date | date:'MMM / d'}}</mat-card-subtitle>
+        <mat-card-title class="temp">{{f.Temperature.Maximum.Value}} </mat-card-title>
+        <mat-card-subtitle class="temp">{{f.Temperature.Minimum.Value}}</mat-card-subtitle>
+        <img class="iconImg" mat-card-image [src]="getSrcImage(f.Day.Icon)">
+      </mat-card-title-group>
+      <mat-card-content>
+        {{f.Day.IconPhrase}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <ng-template #noLocations>
+    <div class="noFavorite">
+       <h1> No locations to show...</h1> 
+    </div>
+</ng-template>
+</div>

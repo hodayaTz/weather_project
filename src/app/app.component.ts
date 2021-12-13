@@ -10,6 +10,7 @@ import { WeatherService } from './core/services/weather.service';
 })
 export class AppComponent implements OnInit {
   displayLoading = false;
+  dark:boolean = false;
     
   constructor(private loaderService: LoaderService, private weatherService: WeatherService) {}
 
@@ -21,9 +22,17 @@ export class AppComponent implements OnInit {
     });
   }
 
-  changeTemperatureUnit() {
-    this.weatherService.isMetric = !this.weatherService.isMetric;
 
-    this.weatherService.temperatureUnitChanged.next();
+
+  lightScreen(){
+    console.log('light')
+    this.dark = false;
   }
+
+  darkScreen(){
+    console.log('dark')
+    this.dark = true;
+  }
+
+  
 }

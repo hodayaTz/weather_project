@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { observable, Observable, of } from 'rxjs';
 import { Location } from 'src/app/shared/models/location.model';
 import { environment } from 'src/environments/environment';
 
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LocationService {
+  
   constructor(private httpClient: HttpClient) {}
 
   getAutocompleteLocation(searchText: string): Observable<Location[]> {

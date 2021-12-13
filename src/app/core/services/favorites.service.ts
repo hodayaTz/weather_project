@@ -10,7 +10,7 @@ export class FavoritesService {
   addToFavorites(location: Location): void {
     this.favorites.push(location);
   }
-
+  
   removeFromFavorites(locationKey: string): void {
     const cityToRemoveIndex = this.favorites.findIndex((favorite) => favorite.Key === locationKey);
     this.favorites.splice(cityToRemoveIndex, 1);

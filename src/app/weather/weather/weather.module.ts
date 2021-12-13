@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/material.module';
 import { FavoritesPage } from './pages/favorites/favorites.page';
 import { SearchPage } from './pages/search/search.page';
 import { WeatherRoutingModule } from './weather-routing.module';
@@ -13,7 +15,9 @@ import { WeatherRoutingModule } from './weather-routing.module';
   ],
   imports: [
     CommonModule,
-    WeatherRoutingModule
+    WeatherRoutingModule,
+    FormsModule,
+    MaterialModule
   ]
 })
 export class WeatherModule { }
