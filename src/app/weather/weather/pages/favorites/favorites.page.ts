@@ -27,7 +27,6 @@ export class FavoritesPage implements OnInit {
 
   getCurrentWeather() {
     this.locations = this._favoritesService.getFavorites();
-    console.log(this.locations)
     this.locations.forEach(element => {
       this._weatherService.getCurrentWeather(element.Key).subscribe(w => {
         this.weathers.push(w[0])
@@ -57,6 +56,5 @@ export class FavoritesPage implements OnInit {
       duration: this.durationInSeconds * 1000
     });
   }
-  
 
 }
