@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FavoritesService } from 'src/app/core/services/favorites.service';
 import { LocationService } from 'src/app/core/services/location.service';
@@ -16,8 +17,9 @@ export class FavoritesPage implements OnInit {
   locations: Location[];
   displayedColumns: string[] = ['position', 'cityName', 'forecast', 'rFavorite', 'weather'];
   weathers: CurrentWeather[] = [];
+  durationInSeconds = 5;
 
-  constructor(private _weatherService: WeatherService, private _favoritesService: FavoritesService, private _router: Router, private lo: LocationService) { }
+  constructor(private _snackBar: MatSnackBar,private _weatherService: WeatherService, private _favoritesService: FavoritesService, private _router: Router, private lo: LocationService) { }
 
   ngOnInit(): void {
     this.getCurrentWeather()
@@ -44,6 +46,17 @@ export class FavoritesPage implements OnInit {
   removeFromFavorites(location: Location) {
     this._favoritesService.removeFromFavorites(location.Key);
     this.getCurrentWeather();
+    this.openSnackBar('Favorite city successfully removed!!')
   }
+  
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'ok', {
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
+      duration: this.durationInSeconds * 1000
+    });
+  }
+  
 
 }
